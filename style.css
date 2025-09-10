@@ -1,1 +1,15 @@
-op
+.about {
+  background-color: var(--button-color);
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.about h2 {
+  margin-top: 0;
+}
+.about strong {
+  color: var(--accent-color);
+}
+
