@@ -1,26 +1,26 @@
-/* Reset básico */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Estilo base */
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
-  line-height: 1.6;
-  padding: 20px;
+/* Cores */
+:root {
+  --primary-green: #4caf50;
+  --dark-turquoise: #006d77;
+  --light-bg: #f0fdf4;
+  --text: #212121;
+  --button-bg: #e0f7e9;
+  --button-hover: #a5d6a7;
 }
 
-main {
-  max-width: 500px;
-  margin: 0 auto;
-  background: white;
+/* Body */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--light-bg);
+  color: var(--text);
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 /* Navbar */
@@ -32,68 +32,96 @@ main {
 }
 
 .navbar h1 {
-  font-size: 24px;
+  color: var(--primary-green);
+  font-size: 26px;
 }
 
-.navbar ul {
-  display: flex;
-  list-style: none;
-  gap: 15px;
-}
-
-.navbar a {
-  text-decoration: none;
-  color: #333;
+.navbar nav button {
+  background-color: var(--dark-turquoise);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  margin-left: 10px;
+  border-radius: 6px;
   font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-.navbar a:hover {
-  background-color: #e0e0e0;
+.navbar nav button:hover {
+  background-color: #004c4f;
 }
 
 /* Tabs */
 .tab {
   display: none;
+  animation: fade 0.4s ease-in-out;
 }
 
 .tab.active {
   display: block;
 }
 
-/* Calculadora */
+/* Fade animation */
+@keyframes fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Calculator layout */
 .calculator {
-  display: flex;
-  flex-direction: column;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 #display {
-  font-size: 28px;
+  width: 100%;
   height: 60px;
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
+  font-size: 28px;
+  margin-bottom: 15px;
   text-align: right;
-  border-radius: 6px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid var(--primary-green);
+  background-color: #fafffa;
 }
 
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 12px;
 }
 
-button {
-  padding: 15px;
+.buttons button {
+  padding: 18px;
   font-size: 18px;
-  background-color: #e7e7e7;
+  background-color: var(--button-bg);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s;
 }
 
-button:hover {
-  background-color: #d1d1d1;
+.buttons button:hover {
+  background-color: var(--button-hover);
+}
+
+/* Text sections */
+#history, #about {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+#history h2, #about h2 {
+  margin-bottom: 15px;
+  color: var(--primary-green);
+}
+
+p {
+  margin-bottom: 12px;
+  font-size: 16px;
 }
