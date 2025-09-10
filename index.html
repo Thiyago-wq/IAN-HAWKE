@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Calculadora Avançada</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <nav class="navbar">
-    <h1>Calculadora Avançada</h1>
-    <ul>
-      <li><a href="#" onclick="showTab('calc')">Calculadora</a></li>
-      <li><a href="#" onclick="showTab('history')">História</a></li>
-      <li><a href="#" onclick="showTab('about')">Créditos</a></li>
-    </ul>
-  </nav>
+  <header class="navbar">
+    <h1>🔢 Calculadora Avançada</h1>
+    <nav>
+      <button onclick="showTab('calc')">Calculadora</button>
+      <button onclick="showTab('history')">História</button>
+      <button onclick="showTab('about')">Créditos</button>
+    </nav>
+  </header>
 
   <main>
-    <!-- Aba: Calculadora -->
+    <!-- Aba 1: Calculadora -->
     <section id="calc" class="tab active">
       <div class="calculator">
-        <input type="text" id="display" disabled>
+        <input type="text" id="display" disabled />
         <div class="buttons">
           <button onclick="clearDisplay()">C</button>
           <button onclick="append('%')">%</button>
@@ -50,22 +50,28 @@
       </div>
     </section>
 
-    <!-- Aba: História -->
+    <!-- Aba 2: História -->
     <section id="history" class="tab">
-      <h2>História da Calculadora</h2>
+      <h2>📚 História da Calculadora</h2>
       <p>
-        A história da calculadora começa com o ábaco, usado há milhares de anos. 
-        Em 1642, Blaise Pascal criou a Pascalina, a primeira calculadora mecânica. 
-        Com o tempo, surgiram as calculadoras eletrônicas e, mais recentemente, as calculadoras digitais baseadas na web.
+        As primeiras formas de calcular surgiram com o <strong>ábaco</strong>, há mais de 2.000 anos na Mesopotâmia e China.
+      </p>
+      <p>
+        Em 1642, <strong>Blaise Pascal</strong> inventou a <em>Pascalina</em>, uma das primeiras calculadoras mecânicas, capaz de somar e subtrair.
+        Anos depois, <strong>Gottfried Leibniz</strong> expandiu o conceito para incluir multiplicação e divisão.
+      </p>
+      <p>
+        Já no século XX, surgiram as calculadoras eletrônicas portáteis, como a <strong>HP-35</strong> (1972), revolucionando o uso pessoal e científico.
+        Hoje, usamos calculadoras web, como esta, que unem funcionalidade e design moderno.
       </p>
     </section>
 
-    <!-- Aba: Créditos -->
+    <!-- Aba 3: Créditos -->
     <section id="about" class="tab">
-      <h2>Créditos</h2>
+      <h2>👤 Créditos</h2>
       <p>
-        Desenvolvido por <strong>Seu Nome Aqui</strong> em 2025. <br>
-        Projeto educacional utilizando HTML, CSS e JavaScript puro.
+        Desenvolvido por <strong>Seu Nome Aqui</strong> em 2025. <br />
+        Este projeto foi criado com o objetivo de unir tecnologia e história em uma interface acessível.
       </p>
     </section>
   </main>
