@@ -1,16 +1,75 @@
-<div class="about">
-  <h2>📜 Sobre a Calculadora</h2>
-  <p>
-    A calculadora é uma das invenções mais importantes da história da matemática. 
-    Desde o ábaco, criado por volta de 2400 a.C., até as calculadoras eletrônicas modernas, 
-    esses dispositivos têm ajudado a humanidade a realizar cálculos complexos com precisão.
-  </p>
-  <p>
-    A primeira calculadora mecânica foi criada por <strong>Blaise Pascal</strong> em 1642, chamada de <em>Pascalina</em>.
-    Ao longo dos séculos, várias versões foram desenvolvidas até chegarmos às calculadoras digitais e, hoje, calculadoras web como esta.
-  </p>
-  <p>
-    Esta versão foi desenvolvida por <strong>Seu Nome Aqui</strong> em 2025, utilizando tecnologias da web como HTML, CSS e JavaScript.
-  </p>
-</div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora Avançada</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h1>Calculadora Avançada</h1>
+    <ul>
+      <li><a href="#" onclick="showTab('calc')">Calculadora</a></li>
+      <li><a href="#" onclick="showTab('history')">História</a></li>
+      <li><a href="#" onclick="showTab('about')">Créditos</a></li>
+    </ul>
+  </nav>
 
+  <main>
+    <!-- Aba: Calculadora -->
+    <section id="calc" class="tab active">
+      <div class="calculator">
+        <input type="text" id="display" disabled>
+        <div class="buttons">
+          <button onclick="clearDisplay()">C</button>
+          <button onclick="append('%')">%</button>
+          <button onclick="sqrt()">√</button>
+          <button onclick="append('/')">÷</button>
+
+          <button onclick="append('7')">7</button>
+          <button onclick="append('8')">8</button>
+          <button onclick="append('9')">9</button>
+          <button onclick="append('*')">×</button>
+
+          <button onclick="append('4')">4</button>
+          <button onclick="append('5')">5</button>
+          <button onclick="append('6')">6</button>
+          <button onclick="append('-')">−</button>
+
+          <button onclick="append('1')">1</button>
+          <button onclick="append('2')">2</button>
+          <button onclick="append('3')">3</button>
+          <button onclick="append('+')">+</button>
+
+          <button onclick="append('0')">0</button>
+          <button onclick="append('.')">.</button>
+          <button onclick="power()">^</button>
+          <button onclick="calculate()">=</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Aba: História -->
+    <section id="history" class="tab">
+      <h2>História da Calculadora</h2>
+      <p>
+        A história da calculadora começa com o ábaco, usado há milhares de anos. 
+        Em 1642, Blaise Pascal criou a Pascalina, a primeira calculadora mecânica. 
+        Com o tempo, surgiram as calculadoras eletrônicas e, mais recentemente, as calculadoras digitais baseadas na web.
+      </p>
+    </section>
+
+    <!-- Aba: Créditos -->
+    <section id="about" class="tab">
+      <h2>Créditos</h2>
+      <p>
+        Desenvolvido por <strong>Seu Nome Aqui</strong> em 2025. <br>
+        Projeto educacional utilizando HTML, CSS e JavaScript puro.
+      </p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
