@@ -4,447 +4,102 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Calculadora Avançada</title>
-  <style>
-    /* Reset básico */
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      background: #f7f9fc;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header.navbar {
-      background: #005f73;
-      color: white;
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 1.5rem;
-    }
-
-    nav button {
-      background: #0a9396;
-      border: none;
-      color: white;
-      font-weight: 600;
-      margin-left: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    nav button:hover,
-    nav button.active {
-      background: #94d2bd;
-      color: #003845;
-    }
-
-    main {
-      flex-grow: 1;
-      padding: 2rem;
-      max-width: 900px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    section.tab {
-      display: none;
-    }
-
-    section.tab.active {
-      display: block;
-    }
-
-    /* Calculadora */
-    .calculator {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    #display {
-      width: 100%;
-      font-size: 2rem;
-      padding: 0.5rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      margin-bottom: 1rem;
-      text-align: right;
-      font-family: monospace;
-    }
-
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .buttons button {
-      padding: 1rem;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 8px;
-      background: #0a9396;
-      color: white;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.2s;
-    }
-
-    .buttons button:hover {
-      background: #94d2bd;
-      color: #003845;
-    }
-
-    .conversions label {
-      font-weight: 600;
-      margin-right: 0.5rem;
-    }
-
-    .conversions input {
-      padding: 0.25rem 0.5rem;
-      width: 80px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      margin-right: 0.5rem;
-    }
-
-    .conversions button {
-      padding: 0.3rem 0.7rem;
-      border-radius: 6px;
-      border: none;
-      background: #005f73;
-      color: white;
-      cursor: pointer;
-      margin-right: 0.5rem;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-
-    .conversions button:hover {
-      background: #0a9396;
-    }
-
-    .conversions span {
-      font-weight: 700;
-      color: #007f5f;
-    }
-
-    /* História */
-    #history h2 {
-      margin-bottom: 1rem;
-      color: #005f73;
-      text-align: center;
-    }
-
-    #history p {
-      line-height: 1.6;
-      margin-bottom: 1rem;
-      text-align: justify;
-    }
-
-    /* Créditos */
-    #about {
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    #about h2 {
-      color: #005f73;
-      margin-bottom: 1rem;
-    }
-
-    #about p {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <header class="navbar">
     <h1>🔢 Calculadora Avançada</h1>
     <nav>
-      <button class="active" onclick="showTab('calc')">Calculadora</button>
-      <button onclick="showTab('history')">História</button>
-      <button onclick="showTab('about')">Créditos</button>
+      <button class="tab-btn active" data-tab="calc">Calculadora</button>
+      <button class="tab-btn" data-tab="history">História</button>
+      <button class="tab-btn" data-tab="about">Créditos</button>
     </nav>
   </header>
 
   <main>
-    <!-- Aba da Calculadora -->
-    <section id="calc" class="tab active">
+    <!-- Aba Calculadora -->
+    <section id="calc" class="tab-content active">
       <div class="calculator">
-        <input type="text" id="display" disabled />
+        <input type="text" id="display" disabled placeholder="0" />
 
-        <div class="buttons">
-          <button onclick="clearDisplay()">C</button>
-          <button onclick="append('%')">%</button>
-          <button onclick="sqrt()">√</button>
-          <button onclick="append('/')">÷</button>
+        <div class="buttons-grid">
+          <!-- Funções básicas -->
+          <button class="btn func-btn" data-action="clear">C</button>
+          <button class="btn func-btn" data-action="percent">%</button>
+          <button class="btn func-btn" data-action="sqrt">√</button>
+          <button class="btn op-btn" data-action="/">÷</button>
 
-          <button onclick="func('sin')">sin</button>
-          <button onclick="func('cos')">cos</button>
-          <button onclick="func('tan')">tan</button>
-          <button onclick="func('asin')">arcsin</button>
+          <!-- Trigonometria -->
+          <button class="btn func-btn" data-action="sin">sin</button>
+          <button class="btn func-btn" data-action="cos">cos</button>
+          <button class="btn func-btn" data-action="tan">tan</button>
+          <button class="btn func-btn" data-action="asin">arcsin</button>
 
-          <button onclick="append('7')">7</button>
-          <button onclick="append('8')">8</button>
-          <button onclick="append('9')">9</button>
-          <button onclick="append('*')">×</button>
+          <!-- Números + Operações -->
+          <button class="btn num-btn" data-value="7">7</button>
+          <button class="btn num-btn" data-value="8">8</button>
+          <button class="btn num-btn" data-value="9">9</button>
+          <button class="btn op-btn" data-action="*">×</button>
 
-          <button onclick="append('4')">4</button>
-          <button onclick="append('5')">5</button>
-          <button onclick="append('6')">6</button>
-          <button onclick="append('-')">−</button>
+          <button class="btn num-btn" data-value="4">4</button>
+          <button class="btn num-btn" data-value="5">5</button>
+          <button class="btn num-btn" data-value="6">6</button>
+          <button class="btn op-btn" data-action="-">−</button>
 
-          <button onclick="append('1')">1</button>
-          <button onclick="append('2')">2</button>
-          <button onclick="append('3')">3</button>
-          <button onclick="append('+')">+</button>
+          <button class="btn num-btn" data-value="1">1</button>
+          <button class="btn num-btn" data-value="2">2</button>
+          <button class="btn num-btn" data-value="3">3</button>
+          <button class="btn op-btn" data-action="+">+</button>
 
-          <button onclick="append('0')">0</button>
-          <button onclick="append('.')">.</button>
-          <button onclick="power()">^</button>
-          <button onclick="calculate()">=</button>
+          <button class="btn num-btn zero-btn" data-value="0">0</button>
+          <button class="btn num-btn" data-value=".">.</button>
+          <button class="btn op-btn" data-action="^">^</button>
+          <button class="btn equal-btn" data-action="=">=</button>
         </div>
 
         <div class="conversions">
-          <label>Km ↔ m:</label><input id="kmInput" type="number" />
-          <button onclick="convert('km')">Converter</button>
-          <span id="kmOut"></span><br />
-
-          <label>°C ↔ °F:</label><input id="tempInput" type="number" />
-          <button onclick="convert('temp')">Converter</button>
-          <span id="tempOut"></span><br />
-
-          <label>Hrs ↔ Min:</label><input id="timeInput" type="number" />
-          <button onclick="convert('time')">Converter</button>
-          <span id="timeOut"></span>
+          <div class="conv-group">
+            <label for="kmInput">Km → m:</label>
+            <input id="kmInput" type="number" placeholder="Ex: 1.5" />
+            <button class="conv-btn" data-conv="km">Converter</button>
+            <span id="kmOut" class="conv-output"></span>
+          </div>
+          <div class="conv-group">
+            <label for="tempInput">°C → °F:</label>
+            <input id="tempInput" type="number" placeholder="Ex: 25" />
+            <button class="conv-btn" data-conv="temp">Converter</button>
+            <span id="tempOut" class="conv-output"></span>
+          </div>
+          <div class="conv-group">
+            <label for="timeInput">Horas → Minutos:</label>
+            <input id="timeInput" type="number" placeholder="Ex: 2" />
+            <button class="conv-btn" data-conv="time">Converter</button>
+            <span id="timeOut" class="conv-output"></span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Aba da História -->
-    <section id="history" class="tab">
+    <!-- Aba História -->
+    <section id="history" class="tab-content">
       <h2>📚 História da Calculadora</h2>
-
-      <!-- História repetida duas vezes para ter conteúdo maior -->
-      <p>
-        A história da calculadora remonta aos tempos antigos, quando as civilizações desenvolviam métodos rudimentares para facilitar operações numéricas. Um dos primeiros instrumentos criados com esse propósito foi o <strong>ábaco</strong>, utilizado por povos mesopotâmicos há mais de 4.000 anos. Com contas deslizantes organizadas em hastes, o ábaco permitia somar, subtrair e até multiplicar valores com mais rapidez e precisão do que o cálculo mental.
-      </p>
-      <p>
-        No século XVII, com o avanço da matemática e da ciência, surgiram dispositivos mecânicos que marcaram o início da automação dos cálculos. Em 1642, o matemático francês <strong>Blaise Pascal</strong> criou a <strong>Pascalina</strong>, considerada a primeira calculadora mecânica funcional. Utilizando rodas dentadas, a máquina conseguia realizar somas e subtrações, sendo usada principalmente para ajudar seu pai, que trabalhava na área de finanças.
-      </p>
-      <p>
-        Pouco depois, em 1672, o filósofo e matemático alemão <strong>Gottfried Wilhelm Leibniz</strong> aperfeiçoou a ideia com a <strong>Roda de Leibniz</strong>, que permitia também multiplicações e divisões. A máquina foi inovadora por introduzir conceitos de engrenagens e mecanismos que seriam utilizados futuramente nas calculadoras modernas. Esses dispositivos eram considerados engenhocas complexas e frequentemente eram mais demonstrativos do que práticos.
-      </p>
-      <p>
-        Avançando para o século XIX, em 1820, o francês <strong>Charles Xavier Thomas de Colmar</strong> desenvolveu o <strong>Arithmometer</strong>, a primeira calculadora comercialmente viável. Ela podia realizar as quatro operações básicas e era usada por empresas e governos. Foi um marco importante porque representava a transição da calculadora como curiosidade científica para uma ferramenta prática de uso profissional.
-      </p>
-      <p>
-        A revolução industrial impulsionou a produção e a miniaturização dos dispositivos mecânicos. Calculadoras de mesa começaram a se popularizar no início do século XX. Um exemplo importante foi a <strong>Marchant Calculator</strong>, muito usada até os anos 1940. Esses modelos utilizavam manivelas, engrenagens e mostradores, sendo robustos e confiáveis, apesar de seu tamanho considerável.
-      </p>
-      <p>
-        Com a chegada da eletrônica após a Segunda Guerra Mundial, começaram a surgir calculadoras eletromecânicas, e logo depois, eletrônicas puras. Um marco ocorreu em 1967 com o lançamento da <strong>Cal-Tech</strong>, protótipo da primeira calculadora de bolso eletrônica, criada pela Texas Instruments. Isso abriu o caminho para dispositivos realmente portáteis, movidos a baterias e com circuitos integrados.
-      </p>
-      <p>
-        Em 1972, a <strong>Hewlett-Packard</strong> lançou a famosa <strong>HP‑35</strong>, considerada a primeira calculadora científica de bolso. Capaz de realizar funções trigonométricas, logaritmos e potências, ela foi amplamente adotada por engenheiros e cientistas. Seu sucesso foi tanto que superou as expectativas de venda em poucos meses, marcando o início da popularização das calculadoras avançadas.
-      </p>
-      <p>
-        Durante os anos 1980 e 1990, as calculadoras se tornaram comuns em escolas, escritórios e residências. Empresas como Casio, Sharp e Texas Instruments dominaram o mercado com modelos que variavam de simples (com as quatro operações básicas) até programáveis, com memória, gráficos e até funções estatísticas avançadas. Surgiram também as calculadoras gráficas, como a <strong>TI‑83</strong> e a <strong>Casio fx‑9860G</strong>, usadas até hoje no ensino.
-      </p>
-      <p>
-        Com o avanço da informática, as calculadoras passaram a existir também em softwares, como o aplicativo de calculadora dos sistemas operacionais Windows e macOS. Além disso, muitas ferramentas online e aplicativos para celulares oferecem funcionalidades que antes só estavam presentes em dispositivos físicos, integrando conversões, gráficos, programação e inteligência artificial.
-      </p>
-      <p>
-        Atualmente, embora os smartphones e computadores tenham assumido grande parte das funções de cálculo, as calculadoras físicas ainda são usadas em ambientes educacionais e profissionais específicos. A história da calculadora é, portanto, um reflexo do desenvolvimento humano — da contagem com os dedos à computação quântica, ela representa a busca constante por facilitar e expandir o raciocínio matemático.
-      </p>
-
-      <!-- Repetindo o texto novamente -->
-
-      <p>
-        A história da calculadora remonta aos tempos antigos, quando as civilizações desenvolviam métodos rudimentares para facilitar operações numéricas. Um dos primeiros instrumentos criados com esse propósito foi o <strong>ábaco</strong>, utilizado por povos mesopotâmicos há mais de 4.000 anos. Com contas deslizantes organizadas em hastes, o ábaco permitia somar, subtrair e até multiplicar valores com mais rapidez e precisão do que o cálculo mental.
-      </p>
-      <p>
-        No século XVII, com o avanço da matemática e da ciência, surgiram dispositivos mecânicos que marcaram o início da automação dos cálculos. Em 1642, o matemático francês <strong>Blaise Pascal</strong> criou a <strong>Pascalina</strong>, considerada a primeira calculadora mecânica funcional. Utilizando rodas dentadas, a máquina conseguia realizar somas e subtrações, sendo usada principalmente para ajudar seu pai, que trabalhava na área de finanças.
-      </p>
-      <p>
-        Pouco depois, em 1672, o filósofo e matemático alemão <strong>Gottfried Wilhelm Leibniz</strong> aperfeiçoou a ideia com a <strong>Roda de Leibniz</strong>, que permitia também multiplicações e divisões. A máquina foi inovadora por introduzir conceitos de engrenagens e mecanismos que seriam utilizados futuramente nas calculadoras modernas. Esses dispositivos eram considerados engenhocas complexas e frequentemente eram mais demonstrativos do que práticos.
-      </p>
-      <p>
-        Avançando para o século XIX, em 1820, o francês <strong>Charles Xavier Thomas de Colmar</strong> desenvolveu o <strong>Arithmometer</strong>, a primeira calculadora comercialmente viável. Ela podia realizar as quatro operações básicas e era usada por empresas e governos. Foi um marco importante porque representava a transição da calculadora como curiosidade científica para uma ferramenta prática de uso profissional.
-      </p>
-      <p>
-        A revolução industrial impulsionou a produção e a miniaturização dos dispositivos mecânicos. Calculadoras de mesa começaram a se popularizar no início do século XX. Um exemplo importante foi a <strong>Marchant Calculator</strong>, muito usada até os anos 1940. Esses modelos utilizavam manivelas, engrenagens e mostradores, sendo robustos e confiáveis, apesar de seu tamanho considerável.
-      </p>
-      <p>
-        Com a chegada da eletrônica após a Segunda Guerra Mundial, começaram a surgir calculadoras eletromecânicas, e logo depois, eletrônicas puras. Um marco ocorreu em 1967 com o lançamento da <strong>Cal-Tech</strong>, protótipo da primeira calculadora de bolso eletrônica, criada pela Texas Instruments. Isso abriu o caminho para dispositivos realmente portáteis, movidos a baterias e com circuitos integrados.
-      </p>
-      <p>
-        Em 1972, a <strong>Hewlett-Packard</strong> lançou a famosa <strong>HP‑35</strong>, considerada a primeira calculadora científica de bolso. Capaz de realizar funções trigonométricas, logaritmos e potências, ela foi amplamente adotada por engenheiros e cientistas. Seu sucesso foi tanto que superou as expectativas de venda em poucos meses, marcando o início da popularização das calculadoras avançadas.
-      </p>
-      <p>
-        Durante os anos 1980 e 1990, as calculadoras se tornaram comuns em escolas, escritórios e residências. Empresas como Casio, Sharp e Texas Instruments dominaram o mercado com modelos que variavam de simples (com as quatro operações básicas) até programáveis, com memória, gráficos e até funções estatísticas avançadas. Surgiram também as calculadoras gráficas, como a <strong>TI‑83</strong> e a <strong>Casio fx‑9860G</strong>, usadas até hoje no ensino.
-      </p>
-      <p>
-        Com o avanço da informática, as calculadoras passaram a existir também em softwares, como o aplicativo de calculadora dos sistemas operacionais Windows e macOS. Além disso, muitas ferramentas online e aplicativos para celulares oferecem funcionalidades que antes só estavam presentes em dispositivos físicos, integrando conversões, gráficos, programação e inteligência artificial.
-      </p>
-      <p>
-        Atualmente, embora os smartphones e computadores tenham assumido grande parte das funções de cálculo, as calculadoras físicas ainda são usadas em ambientes educacionais e profissionais específicos. A história da calculadora é, portanto, um reflexo do desenvolvimento humano — da contagem com os dedos à computação quântica, ela representa a busca constante por facilitar e expandir o raciocínio matemático.
-      </p>
+      <p>Em tempos antigos, quando os homens contavam com os dedos, a necessidade de calcular era mais uma arte do que uma ciência. Os primeiros dispositivos foram as tábuas de argila e os ábacos, usados para facilitar cálculos simples e transações comerciais.</p>
+      <p>Com o passar do tempo, inventores como Blaise Pascal, no século XVII, desenvolveram a Pascalina, considerada uma das primeiras calculadoras mecânicas. Essa máquina podia realizar somas e subtrações, abrindo caminho para dispositivos mais complexos.</p>
+      <p>Durante o século XIX, a Arithmometer foi inventada, aprimorando o conceito da calculadora mecânica e popularizando seu uso em escritórios e instituições financeiras.</p>
+      <p>No século XX, a revolução digital trouxe o desenvolvimento da calculadora eletrônica. O HP-35, lançado em 1972, foi a primeira calculadora científica portátil, revolucionando a forma como engenheiros e cientistas trabalhavam.</p>
+      <p>Hoje, as calculadoras são onipresentes em dispositivos móveis, incorporando funções avançadas e até inteligência artificial para realizar cálculos complexos e análises.</p>
+      <p>Desde os tempos antigos até os modernos, a evolução da calculadora reflete a busca humana pela precisão, rapidez e eficiência nos cálculos diários.</p>
+      <!-- Pode repetir ou ampliar a história para preencher espaço -->
     </section>
 
-    <!-- Aba de Créditos -->
-    <section id="about" class="tab">
+    <!-- Aba Créditos -->
+    <section id="about" class="tab-content">
       <h2>👤 Créditos</h2>
       <p>Desenvolvido por <strong>Seu Nome Aqui</strong> em 2025.</p>
-      <p>Este projeto une tecnologia, estética e história.</p>
+      <p>Este projeto une tecnologia, estética e história para proporcionar uma experiência completa.</p>
     </section>
   </main>
 
-  <script>
-    // Função para trocar abas
-    function showTab(tabId) {
-      document.querySelectorAll("section.tab").forEach((section) => {
-        section.classList.remove("active");
-      });
-      document.getElementById(tabId).classList.add("active");
-
-      // Atualizar botão ativo
-      document.querySelectorAll("nav button").forEach((btn) => {
-        btn.classList.remove("active");
-      });
-      document.querySelector(`nav button[onclick="showTab('${tabId}')"]`).classList.add("active");
-    }
-
-    // Manipulação do display da calculadora
-    const display = document.getElementById("display");
-
-    function append(char) {
-      display.value += char;
-    }
-
-    function clearDisplay() {
-      display.value = "";
-    }
-
-    function calculate() {
-      try {
-        // Substitui ÷ e × para operadores JS
-        let expression = display.value.replace(/÷/g, "/").replace(/×/g, "*").replace(/\^/g, "**");
-        // Substitui % (mod) para cálculo correto
-        expression = expression.replace(/%/g, "*0.01");
-        // Avalia expressão
-        let result = eval(expression);
-        display.value = result;
-      } catch {
-        display.value = "Erro";
-      }
-    }
-
-    // Funções trigonométricas e inversas
-    function func(f) {
-      try {
-        let val = parseFloat(display.value);
-        if (isNaN(val)) {
-          display.value = "Erro";
-          return;
-        }
-        let rad = val * (Math.PI / 180); // converte para radianos para trig funções
-
-        let res;
-        switch (f) {
-          case "sin":
-            res = Math.sin(rad);
-            break;
-          case "cos":
-            res = Math.cos(rad);
-            break;
-          case "tan":
-            res = Math.tan(rad);
-            break;
-          case "asin":
-            res = Math.asin(val) * (180 / Math.PI);
-            break;
-          default:
-            res = val;
-        }
-        display.value = res.toFixed(6);
-      } catch {
-        display.value = "Erro";
-      }
-    }
-
-    // Raiz quadrada
-    function sqrt() {
-      try {
-        let val = parseFloat(display.value);
-        if (isNaN(val)) {
-          display.value = "Erro";
-          return;
-        }
-        display.value = Math.sqrt(val).toFixed(6);
-      } catch {
-        display.value = "Erro";
-      }
-    }
-
-    // Potência (apenda o símbolo ^, que será transformado em ** no eval)
-    function power() {
-      display.value += "^";
-    }
-
-    // Conversões
-    function convert(type) {
-      if (type === "km") {
-        const km = parseFloat(document.getElementById("kmInput").value);
-        if (isNaN(km)) {
-          alert("Informe um valor numérico para Km");
-          return;
-        }
-        const meters = km * 1000;
-        document.getElementById("kmOut").textContent = `${km} Km = ${meters} metros`;
-      }
-      else if (type === "temp") {
-        const c = parseFloat(document.getElementById("tempInput").value);
-        if (isNaN(c)) {
-          alert("Informe um valor numérico para temperatura");
-          return;
-        }
-        const f = (c * 9 / 5) + 32;
-        document.getElementById("tempOut").textContent = `${c} °C = ${f.toFixed(2)} °F`;
-      }
-      else if (type === "time") {
-        const hr = parseFloat(document.getElementById("timeInput").value);
-        if (isNaN(hr)) {
-          alert("Informe um valor numérico para horas");
-          return;
-        }
-        const minutes = hr * 60;
-        document.getElementById("timeOut").textContent = `${hr} horas = ${minutes} minutos`;
-      }
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
